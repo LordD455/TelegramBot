@@ -1,0 +1,24 @@
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Entornos virtuales
+env/
+venv/
+.venv/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Carpetas innecesarias de otros proyectos
+.gradle/
+build/
+.idea/
+.cache/
