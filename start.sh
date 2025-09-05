@@ -1,3 +1,6 @@
 #!/bin/bash
-# Este script inicia el bot de Telegram
-python3 bot.py
+# Instala las dependencias
+pip install -r requirements.txt
+
+# Ejecuta el bot
+python bot.py

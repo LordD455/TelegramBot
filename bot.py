@@ -1,3 +1,4 @@
+import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler
 import random
@@ -29,54 +30,6 @@ preguntas = [
         "opciones": ["Mutante", "Yordle", "Vastaya", "Humano"],
         "respuesta": "Humano",
         "imagen": "https://i.ytimg.com/vi/EMwPUtsHHE4/maxresdefault.jpg"
-    },
-    {
-        "pregunta": "¿Qué línea suele jugar Akali en el mapa de League of Legends?",
-        "opciones": ["Jungla", "Top y Mid", "Soporte", "Adc"],
-        "respuesta": "Top y Mid",
-        "imagen": "https://tse1.mm.bing.net/th/id/OIP.e0IylLle5iB4Sj-yoZzdDAHaEK"
-    },
-    {
-        "pregunta": "¿Quién fue el maestro de Akali?",
-        "opciones": ["Shen", "Zed", "Irelia", "Kennen"],
-        "respuesta": "Shen",
-        "imagen": "https://images8.alphacoders.com/111/thumb-1920-1110563.jpg"
-    },
-    {
-        "pregunta": "¿A qué orden ninja pertenece Akali?",
-        "opciones": ["Kinkou", "Assassins", "Ionian Guard", "Demacian Scouts"],
-        "respuesta": "Kinkou",
-        "imagen": "https://pm1.aminoapps.com/6815/13dfaaf4872376e9ecb026caf3a58799fe048757v2_hq.jpg"
-    },
-    {
-        "pregunta": "¿Cuál es el lema de Akali?",
-        "opciones": ["Nadie puede detenerme", "El silencio es mi aliada", "Soy la sombra letal", "Nada me detiene"],
-        "respuesta": "El silencio es mi aliada",
-        "imagen": "https://static1-es.millenium.gg/articles/0/30/00/0/@/137917-akali-article_m-1.jpg"
-    },
-    {
-        "pregunta": "¿Cómo se llama la habilidad Q de Akali?",
-        "opciones": ["Rafaga de cinco filos", "Maniobra de Shuriken", "Manto Crepuscular", "Ejecucion perfecta"],
-        "respuesta": "Rafaga de cinco filos",
-        "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPxQCIjpTBwxujwuhK3yBiAxVA0MpTLqOBmQ&s"
-    },
-    {
-        "pregunta": "¿Qué habilidad le permite volverse invisible temporalmente?",
-        "opciones": ["Ejecucion perfecta", "Maniobre de Shuriken", "Manto Crepuscular", "Rafaga de cinco filos"],
-        "respuesta": "Manto Crepuscular",
-        "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZgR3lA8lkgcIE0Sj1YyYQRCRuR2epKQT39kCnSv8CEODyIVPgbDykrZhDXYjUpYelqvs&usqp=CAU"
-    },
-    {
-        "pregunta": "¿Qué tipo de daño hace principalmente Akali?",
-        "opciones": ["Físico", "Mágico", "Verdadero", "Mixto"],
-        "respuesta": "Mixto",
-        "imagen": "https://www.zonadeleyendas.com/wp-content/uploads/2018/07/akali-rework-790x415.jpg"
-    },
-    {
-        "pregunta": "¿Cuál es el nombre de la skin inspirada en K/DA?",
-        "opciones": ["K/DA ALL OUT", "Academia Ninja", "Proyecto", "Infernal"],
-        "respuesta": "K/DA ALL OUT",
-        "imagen": "https://static.wikia.nocookie.net/leagueoflegends/images/d/d2/Aspecto_-_Akali_KDA_ALL_OUT.jpg/revision/latest/scale-to-width-down/1215?cb=20231105225243&path-prefix=es"
     }
 ]
 
@@ -87,7 +40,7 @@ IMAGEN_CORRECTO = "https://media.tenor.com/A6RcWds41-gAAAAM/akali-ramen.gif"
 IMAGEN_INCORRECTO = "https://media.tenor.com/hoPVaeiHbogAAAAM/star-guardian-akali-falling.gif"
 GIF_BIENVENIDA = "https://th.bing.com/th/id/R.e4759fea5fa02860ac473d362a50b5e4?rik=scQITq5jixOEyQ&pid=ImgRaw&r=0"
 
-# **Imágenes exclusivas para Misiones**
+# Imágenes exclusivas para Misiones
 IMAGEN_MISION_CORRECTO = "https://media.tenor.com/H-vQkeKIseEAAAAM/akali-lol.gif"
 IMAGEN_MISION_INCORRECTO = "https://pa1.aminoapps.com/7286/8c7f441fcdc451632535630972f370606780237cr1-600-338_hq.gif"
 
@@ -100,7 +53,7 @@ misiones = [
         "texto": "🌙 Akali recibe la orden de investigar un templo en ruinas. ¿Qué debería hacer primero?",
         "opciones": ["Explorar con sigilo", "Entrar sin pensar", "Esperar refuerzos"],
         "respuesta": "Explorar con sigilo",
-        "imagen": "https://escapadas.mexicodesconocido.com.mx/wp-content/uploads/2025/04/Templo-en-ruinas-Zoatlan-PORTADA.png"
+        "imagen": "https://preview.free3d.com/img/2020/08/2408258887472908060/fe6ad60f.jpg"
     },
     {
         "id": 2,
@@ -123,7 +76,6 @@ misiones = [
 # ---------------------------
 puntajes = {}
 estado_jugadores = {}
-
 # ---------------------------
 # /start
 # ---------------------------
@@ -203,7 +155,7 @@ async def button_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.message.reply_text(
             f"🏁 ¡Ronda completada! Tu puntaje final es: {puntajes[usuario]}"
         )
-        return  # Se detiene, no sigue automáticamente
+        return
 
     await jugar(update, context)
 
@@ -271,11 +223,16 @@ async def donar(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "✨ ¡Gracias por apoyar este proyecto!\nPuedes hacer tu aporte aquí:",
         reply_markup=teclado
     )
-
 # ---------------------------
 # Configuración del bot
 # ---------------------------
-app = ApplicationBuilder().token("7023804645:AAEXWroo4DBLGGNHqwIQbPx96GEDov9XlIk").build()
+# Usa variable de entorno TELEGRAM_TOKEN si está definida, si no usa tu token actual
+TOKEN = os.getenv("TELEGRAM_TOKEN", "7023804645:AAEXWroo4DBLGGNHqwIQbPx96GEDov9XlIk")
+app = ApplicationBuilder().token(TOKEN).build()
+
+# ---------------------------
+# Handlers del bot
+# ---------------------------
 
 # Quiz
 app.add_handler(CommandHandler("start", start))
@@ -290,8 +247,16 @@ app.add_handler(CallbackQueryHandler(button_mision, pattern="^mision_"))
 # Donaciones
 app.add_handler(CommandHandler("donar", donar))
 
+# ---------------------------
+# Mensaje de inicio en consola
+# ---------------------------
 print("Bot avanzado con quiz + misiones + donaciones iniciado...")
+
+# ---------------------------
+# Ejecutar bot
+# ---------------------------
 app.run_polling()
+
 
 
 
