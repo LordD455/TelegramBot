@@ -370,17 +370,15 @@ app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("jugar", jugar))
 app.add_handler(CommandHandler("puntaje", puntaje))
-app.add_handler(CallbackQueryHandler(button_quiz, pattern="^(?!mision_).*"))
+app.add_handler(CallbackQueryHandler(button_quiz, pattern="^(?!mision_|aventura).*"))
 
 # Misiones
 app.add_handler(CommandHandler("mision", mision))
 app.add_handler(CallbackQueryHandler(button_mision, pattern="^mision_"))
 
-# ---------------------------
-# REGISTRAR EN APPLICATION
-# ---------------------------
-application.add_handler(CommandHandler("aventura", aventura))
-application.add_handler(CallbackQueryHandler(aventura_handler))
+# Aventuras
+app.add_handler(CommandHandler("aventura", aventura))
+app.add_handler(CallbackQueryHandler(aventura_handler, pattern="^aventura"))
 
 # Donaciones
 app.add_handler(CommandHandler("donar", donar))
