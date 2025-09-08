@@ -30,6 +30,54 @@ preguntas = [
         "opciones": ["Mutante", "Yordle", "Vastaya", "Humano"],
         "respuesta": "Humano",
         "imagen": "https://i.ytimg.com/vi/EMwPUtsHHE4/maxresdefault.jpg"
+    },
+    {
+        "pregunta": "¿Qué línea suele jugar Akali en el mapa de League of Legends?",
+        "opciones": ["Jungla", "Top y Mid", "Soporte", "Adc"],
+        "respuesta": "Top y Mid",
+        "imagen": "https://tse1.mm.bing.net/th/id/OIP.e0IylLle5iB4Sj-yoZzdDAHaEK"
+    },
+    {
+        "pregunta": "¿Quién fue el maestro de Akali?",
+        "opciones": ["Shen", "Zed", "Irelia", "Kennen"],
+        "respuesta": "Shen",
+        "imagen": "https://images8.alphacoders.com/111/thumb-1920-1110563.jpg"
+    },
+    {
+        "pregunta": "¿A qué orden ninja pertenece Akali?",
+        "opciones": ["Kinkou", "Assassins", "Ionian Guard", "Demacian Scouts"],
+        "respuesta": "Kinkou",
+        "imagen": "https://pm1.aminoapps.com/6815/13dfaaf4872376e9ecb026caf3a58799fe048757v2_hq.jpg"
+    },
+    {
+        "pregunta": "¿Cuál es el lema de Akali?",
+        "opciones": ["Nadie puede detenerme", "El silencio es mi aliada", "Soy la sombra letal", "Nada me detiene"],
+        "respuesta": "El silencio es mi aliada",
+        "imagen": "https://static1-es.millenium.gg/articles/0/30/00/0/@/137917-akali-article_m-1.jpg"
+    },
+    {
+        "pregunta": "¿Cómo se llama la habilidad Q de Akali?",
+        "opciones": ["Rafaga de cinco filos", "Maniobra de Shuriken", "Manto Crepuscular", "Ejecucion perfecta"],
+        "respuesta": "Rafaga de cinco filos",
+        "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPxQCIjpTBwxujwuhK3yBiAxVA0MpTLqOBmQ&s"
+    },
+    {
+        "pregunta": "¿Qué habilidad le permite volverse invisible temporalmente?",
+        "opciones": ["Ejecucion perfecta", "Maniobre de Shuriken", "Manto Crepuscular", "Rafaga de cinco filos"],
+        "respuesta": "Manto Crepuscular",
+        "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZgR3lA8lkgcIE0Sj1YyYQRCRuR2epKQT39kCnSv8CEODyIVPgbDykrZhDXYjUpYelqvs&usqp=CAU"
+    },
+    {
+        "pregunta": "¿Qué tipo de daño hace principalmente Akali?",
+        "opciones": ["Físico", "Mágico", "Verdadero", "Mixto"],
+        "respuesta": "Mixto",
+        "imagen": "https://www.zonadeleyendas.com/wp-content/uploads/2018/07/akali-rework-790x415.jpg"
+    },
+    {
+        "pregunta": "¿Cuál es el nombre de la skin inspirada en K/DA?",
+        "opciones": ["K/DA ALL OUT", "Academia Ninja", "Proyecto", "Infernal"],
+        "respuesta": "K/DA ALL OUT",
+        "imagen": "https://static.wikia.nocookie.net/leagueoflegends/images/d/d2/Aspecto_-_Akali_KDA_ALL_OUT.jpg/revision/latest/scale-to-width-down/1215?cb=20231105225243&path-prefix=es"
     }
 ]
 
