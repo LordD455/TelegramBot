@@ -119,6 +119,58 @@ misiones = [
     }
 ]
 
+
+# ---------------------------
+# AVENTURAS DE AKALI
+# ---------------------------
+aventuras = [
+    {
+        "id": "aventura1",
+        "titulo": "🌆 Misión en Ionia",
+        "descripcion": "Akali debe infiltrarse en un templo enemigo sin ser descubierta. ¿Qué hará?",
+        "opciones": [
+            ("Esperar hasta la noche", "noche"),
+            ("Entrar de inmediato", "inmediato"),
+            ("Crear una distracción con kunais", "distraccion"),
+        ],
+        "respuestas": {
+            "noche": "🌙 Akali esperó y entró sigilosamente. ¡Éxito total!",
+            "inmediato": "⚔️ Akali fue descubierta al entrar de día. ¡Misión fallida!",
+            "distraccion": "💥 Los guardias corrieron tras el ruido, Akali aprovechó para entrar. ¡Muy astuto!",
+        },
+    },
+    {
+        "id": "aventura2",
+        "titulo": "⚔️ El duelo en la taberna",
+        "descripcion": "Un espadachín habla mal de los Kinkou en la taberna. ¿Cómo actúa Akali?",
+        "opciones": [
+            ("Usar artes marciales", "artes"),
+            ("Usar veneno", "veneno"),
+            ("Intimidarlo con palabras", "intimidar"),
+        ],
+        "respuestas": {
+            "artes": "🥋 Akali lo derrotó con rapidez y la taberna la aclamó. ¡Victoria limpia!",
+            "veneno": "☠️ El veneno funcionó, pero dejó sospechas entre los presentes.",
+            "intimidar": "😎 Akali habló con firmeza y el espadachín huyó sin pelear.",
+        },
+    },
+    {
+        "id": "aventura3",
+        "titulo": "🐉 Guardián del dragón",
+        "descripcion": "Un dragón menor bloquea el paso a la montaña. ¿Qué hará Akali?",
+        "opciones": [
+            ("Luchar contra el dragón", "luchar"),
+            ("Pasar con sigilo", "sigilo"),
+            ("Alimentarlo con carne", "alimentar"),
+        ],
+        "respuestas": {
+            "luchar": "🔥 Akali peleó con valentía y el dragón huyó herido. ¡Camino libre!",
+            "sigilo": "👤 Akali pasó desapercibida entre las sombras. ¡Nadie la detuvo!",
+            "alimentar": "🍖 El dragón comió y se durmió. Akali cruzó sin problemas.",
+        },
+    },
+]
+
 # ---------------------------
 # Estados
 # ---------------------------
@@ -259,6 +311,38 @@ async def button_mision(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.message.reply_text("💀 Has fallado la misión. Usa /mision para intentarlo de nuevo.")
 
 # ---------------------------
+# MANEJADORES DE AVENTURAS
+# ---------------------------
+async def aventura(update, context):
+    query = update.callback_query
+    if query:
+        await query.answer()
+    keyboard = []
+    for idx, aventura in enumerate(aventuras, start=1):
+        keyboard.append([InlineKeyboardButton(aventura["titulo"], callback_data=aventura["id"])])
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("🌸 Elige una aventura de Akali:", reply_markup=reply_markup)
+
+async def aventura_handler(update, context):
+    query = update.callback_query
+    data = query.data
+
+    # Buscar aventura por id
+    aventura = next((a for a in aventuras if a["id"] == data), None)
+    if aventura:
+        keyboard = [[InlineKeyboardButton(text, callback_data=f"{data}_{valor}")]
+                    for text, valor in aventura["opciones"]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await query.edit_message_text(aventura["descripcion"], reply_markup=reply_markup)
+    else:
+        # Procesar respuesta
+        for a in aventuras:
+            for clave, texto in a["respuestas"].items():
+                if data == f"{a['id']}_{clave}":
+                    await query.edit_message_text(texto)
+                    return
+
+# ---------------------------
 # /donar
 # ---------------------------
 async def donar(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -291,6 +375,12 @@ app.add_handler(CallbackQueryHandler(button_quiz, pattern="^(?!mision_).*"))
 # Misiones
 app.add_handler(CommandHandler("mision", mision))
 app.add_handler(CallbackQueryHandler(button_mision, pattern="^mision_"))
+
+# ---------------------------
+# REGISTRAR EN APPLICATION
+# ---------------------------
+application.add_handler(CommandHandler("aventura", aventura))
+application.add_handler(CallbackQueryHandler(aventura_handler))
 
 # Donaciones
 app.add_handler(CommandHandler("donar", donar))
